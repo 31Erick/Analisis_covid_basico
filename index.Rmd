@@ -31,6 +31,7 @@ covid <- read.csv(file = "05_10_22_CSV_GENERAL.csv",sep = ";")
 ## Procesamiento 
 
 ### Opciones generales
+
 ```{r Opcines generales }
 options(scipen = 7)
 ```
@@ -165,3 +166,129 @@ axis(
 
 ```
 
+#### Casos diarios 
+
+##### Nuevos Positivos
+```{r Casos_nuevos_positivos}
+barplot(height = covid$nue_posi, 
+  names.arg=format(covid$FECHA, "%Y"),
+  bty = "n", 
+  tck = 0, 
+  xaxt = "n",
+  space = 1,
+  main="Casos positivos por día",
+  xlab = "Fecha",
+  ylab = "Casos positivos",
+  col = "blue"
+   )
+
+# Fechas minima y máxima
+x_min <- min(covid$FECHA)
+x_max <- max(covid$FECHA)
+
+# Formato del eje X
+axis(
+  side = 1,
+  at = match(seq(as.Date(x_min), x_max, "years"), covid$FECHA) * (1 + 1),
+  labels = format(seq(as.Date(x_min), x_max, "years"), "%Y"),
+  lwd = 0)
+
+```
+
+##### Fallecidos
+```{r Fallecido_nuevos}
+barplot(height = covid$nue_falleci, 
+  names.arg=format(covid$FECHA, "%Y"),
+  bty = "n", 
+  tck = 0, 
+  xaxt = "n",
+  space = 1,
+  main="Fallecidos por día",
+  xlab = "Fecha",
+  ylab = "Fallecido",
+  col = "blue"
+   )
+
+# Fechas minima y máxima
+x_min <- min(covid$FECHA)
+x_max <- max(covid$FECHA)
+
+# Formato del eje X
+axis(
+  side = 1,
+  at = match(seq(as.Date(x_min), x_max, "years"), covid$FECHA) * (1 + 1),
+  labels = format(seq(as.Date(x_min), x_max, "years"), "%Y"),
+  lwd = 0)
+
+```
+
+##### Hospitalizados 
+```{r Casos_nuevos_Hospitalizados}
+barplot(height = covid$nue_hospi, 
+  names.arg=format(covid$FECHA, "%Y"),
+  bty = "n", 
+  tck = 0, 
+  xaxt = "n",
+  space = 1,
+  main="Nuevos hospitalizados",
+  xlab = "Fecha",
+  ylab = "Hospitalizados",
+  col = "blue"
+   )
+
+# Fechas minima y máxima
+x_min <- min(covid$FECHA)
+x_max <- max(covid$FECHA)
+
+# Formato del eje X
+axis(
+  side = 1,
+  at = match(seq(as.Date(x_min), x_max, "years"), covid$FECHA) * (1 + 1),
+  labels = format(seq(as.Date(x_min), x_max, "years"), "%Y"),
+  lwd = 0)
+# Formato del eje X
+axis(side = 1,
+     covid$FECHA,
+     tick = FALSE,
+     format(covid$FECHA, "%m-%y"),
+     cex.axis = .7)
+
+```
+
+##### Casos UCI y salon 
+
+```{r Casos_UCI_salon}
+# Gráfico de líneas de casos uci y salon
+plot(
+  covid$FECHA,
+  covid$salon,
+  type = "l",
+  xaxt = "n",
+  yaxt = "n",
+  main = "Casos UCI y salon en Costa Rica",
+  xlab = "Fecha",
+  ylab = "Casos",
+  col = "blue"
+)
+# Formato del eje X
+axis(side = 1,
+     covid$FECHA,
+     tick = FALSE,
+     format(covid$FECHA, "%m-%y"),
+     cex.axis = .7
+)
+
+# Formato del eje Y
+axis(
+  side = 2,
+  covid$salon,
+  labels = TRUE,  
+  at = seq(0, 1000000, by = 200000),
+  cex.axis = .7
+)
+
+
+# Casos UCI
+lines(covid$FECHA, covid$UCI, col="black")
+
+)
