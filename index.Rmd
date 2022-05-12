@@ -2,11 +2,18 @@
 title: "Analisis de datos Covid-19"
 author: "Erick Ruiz"
 date: '2022-05-12'
-output: html_document
+output:
+  html_document:
+    theme: readable    
+    toc: true
+    toc_depth: 5
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = T)
 ```
 
 ## Presentación  
@@ -64,5 +71,97 @@ axis(
   at = seq(0, 1000000, by = 200000),
   cex.axis = .7
 )
+```
+
+##### Fallecidos
+
+```{r casos_ }
+plot(x = covid$FECHA, y = covid$fallecidos, main = "Fallecidos por COVID-19 en Costa Rica", xlab = "FECHA", ylab = "Fallecidos", type = "l",   xaxt = "n",
+  yaxt = "n" )
+
+# Formato del eje X
+axis(side = 1,
+     covid$FECHA,
+     tick = FALSE,
+     format(covid$FECHA, "%m-%y"),
+     cex.axis = .7
+)
+
+# Formato del eje Y
+axis(
+  side = 2,
+  covid$fallecidos,
+  labels = TRUE,  
+  at = seq(0, 10000, by = 2000),
+  cex.axis = .7
+)
+```
+
+##### Otros
+
+```{r Casos_Otros}
+# Gráfico de líneas de casos activos
+plot(
+  covid$FECHA,
+  covid$positivos,
+  type = "l",
+  xaxt = "n",
+  yaxt = "n",
+  main = "Casos de COVID en Costa Rica",
+  xlab = "Fecha",
+  ylab = "Casos",
+  col = "blue"
+)
+# Formato del eje X
+axis(side = 1,
+     covid$FECHA,
+     tick = FALSE,
+     format(covid$FECHA, "%m-%y"),
+     cex.axis = .7
+)
+
+# Formato del eje Y
+axis(
+  side = 2,
+  covid$positivos,
+  labels = TRUE,  
+  at = seq(0, 1000000, by = 200000),
+  cex.axis = .7
+)
+
+# Casos activos
+lines(covid$FECHA, covid$activos, col="red")
+
+# Casos recuperados
+lines(covid$FECHA, covid$RECUPERADOS, col="green")
+
+# Casos fallecidos
+lines(covid$FECHA, covid$fallecidos, col="black")
+
+# Leyenda
+legend(
+  x = "topleft",
+  inset = 0.03,
+  legend = c("Positivos", "Activos", "Recuperados", "Fallecidos"),
+  col = c("blue", "red", "green", "black"),
+  lty = 1,
+  cex = 0.7)
+
+# Formato del eje X
+axis(side = 1,
+     covid$FECHA,
+     tick = FALSE,
+     format(covid$FECHA, "%m-%y"),
+     cex.axis = .7)
+
+# Formato del eje Y
+axis(
+  side = 2,
+  covid$positivos,
+  labels = TRUE,  
+  at = seq(0, 1000000, by = 200000),
+  cex.axis = .7
+)
+
 ```
 
