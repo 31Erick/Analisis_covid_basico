@@ -318,3 +318,70 @@ axis(
 )
 
 ```
+
+
+#####  Casos activos de menores, adultos y adultos mayores
+```{r Casos_acumulados_men_adu_adu_may}
+# Gráfico de líneas de casos activos
+plot(
+  covid$FECHA,
+  covid$adul_acti,
+  type = "l",
+  xaxt = "n",
+  yaxt = "n",
+  main = "Casos activos de menores, adultos y adultos mayores",
+  xlab = "Fecha",
+  ylab = "Casos",
+  col = "blue"
+)
+# Formato del eje X
+axis(side = 1,
+     covid$FECHA,
+     tick = FALSE,
+     format(covid$FECHA, "%m-%y"),
+     cex.axis = .7
+)
+
+# Formato del eje Y
+axis(
+  side = 2,
+  covid$adul_acti,
+  labels = TRUE,  
+  at = seq(0, 1000000, by = 200000),
+  cex.axis = .7
+)
+
+# Casos Adul_mayor
+lines(covid$FECHA, covid$am_acti, col="red")
+
+# Casos menores
+lines(covid$FECHA, covid$menor_acti, col="yellow")
+
+
+
+# Leyenda
+legend(
+  x = "topleft",
+  inset = 0.03,
+  legend = c("Adultos", "Adultos mayores", "Menores de edad"),
+  col = c("blue", "red", "yellow"),
+  lty = 1,
+  cex = 0.7)
+
+# Formato del eje X
+axis(side = 1,
+     covid$FECHA,
+     tick = FALSE,
+     format(covid$FECHA, "%m-%y"),
+     cex.axis = .7)
+
+# Formato del eje Y
+axis(
+  side = 2,
+  covid$adul_acti,
+  labels = TRUE,  
+  at = seq(0, 1000000, by = 200000),
+  cex.axis = .7
+)
+
+```
