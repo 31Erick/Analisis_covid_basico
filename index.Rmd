@@ -13,44 +13,40 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = T)
+knitr::opts_chunk$set(echo = F)
 ```
 
 ## Presentación  
 Este documento presenta varios gráficos estadísticos de los datos de COVID-19 en Costa Rica publicados por el Ministerio de Salud en [https://geovision.uned.ac.cr/oges/]() Los gráficos han sido generados con funciones del paquete base del lenguaje de programación R.
 
 
-## Entrada 
 
-### Carga de datos
+
+
 
 ```{r Carga_datos}
 covid <- read.csv(file = "05_10_22_CSV_GENERAL.csv",sep = ";")
 ```
 
-## Procesamiento 
 
-### Opciones generales
 
 ```{r Opcines generales }
 options(scipen = 7)
 ```
 
 
-### curación de datos
+
 ```{r Convercion fecha}
 covid$FECHA <- as.Date(covid$FECHA, format = "%d/%m/%Y")
 ```
 
 
 
-## Salidas 
 
 ### Graficos
 
-#### Casos acumulados 
 
-##### Positivos
+#### Positivos
 
 ```{r casos Positivos acumulados }
 plot(x = covid$FECHA, y = covid$positivos, main = "Casos positivos acumulados de COVID-19 en Costa Rica", xlab = "FECHA", ylab = "Casos positivos", type = "l",   xaxt = "n",
@@ -166,9 +162,9 @@ axis(
 
 ```
 
-#### Casos diarios 
 
-##### Nuevos Positivos
+
+#### Nuevos Positivos
 ```{r Casos_nuevos_positivos}
 barplot(height = covid$nue_posi, 
   names.arg=format(covid$FECHA, "%Y"),
@@ -319,8 +315,8 @@ axis(
 
 ```
 
+#### Casos activos de menores,adultos y adultos mayores
 
-#####  Casos activos de menores, adultos y adultos mayores
 ```{r Casos_acumulados_men_adu_adu_may}
 # Gráfico de líneas de casos activos
 plot(
